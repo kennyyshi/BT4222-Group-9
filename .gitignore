@@ -1,0 +1,12 @@
+# Raw JDsearch dataset (multi-GB, not suitable for git) - see README for how to obtain
+JDsearch.tar
+JDsearch/
+
+# Other local data/artifacts
+*.pt
+*.tar
+*.tar.gz
+
+# OS / editor cruft
+.DS_Store
+.ipynb_checkpoints/
