@@ -8,19 +8,22 @@ The raw data (`user_behavior_data.txt`, `product_meta_data.txt`) is **not** incl
 
 ### Option A: Run locally (e.g. VS Code)
 
-1. Download `JDsearch.tar` from the JD Cloud Disk link in the [JDsearch README](https://github.com/rucliujn/JDsearch#obtain-the-data) (password: `zz4qza`; requires the JD mobile app to scan the QR code on the landing page).
+1. Download `JDsearch.tar` from gdrive folder https://drive.google.com/file/d/1ppTZXnXsjkuxOEKcE3fwQbWA2MPcDKDL/view
 2. Extract it into this same project folder:
    ```
    tar -xvf JDsearch.tar
    ```
    This creates a `JDsearch/` folder containing `user_behavior_data.txt` and `product_meta_data.txt` alongside the notebooks.
-3. Open and run the notebook in VS Code (or Jupyter) — the data-loading cells expect the data at `./JDsearch/`.
+3. In the first two cells, comment out the `google.colab` import and the two Colab lines, and uncomment `BASE = Path("JDsearch")`.
+4. Open and run the notebook in VS Code (or Jupyter).
 
-### Option B: Run on Google Colab
+### Option B: Run on Google Colab (default)
 
-1. Upload `JDsearch.tar` (or its extracted contents) to your Google Drive, e.g. `MyDrive/bt4222/JDsearch/`.
-2. Open the notebook in Colab.
-3. Uncomment the Colab data-loading cell (mounts Drive and points at `/content/drive/MyDrive/bt4222/JDsearch/`) and comment out/remove the local-path version before running.
+1. Put the extracted `user_behavior_data.txt` and `product_meta_data.txt` in `MyDrive/bt4222/JDsearch/` on your Google Drive. If you upload `JDsearch.tar` instead, extract it from a Colab cell first:
+   ```
+   !tar -xf /content/drive/MyDrive/bt4222/JDsearch.tar -C /content/drive/MyDrive/bt4222/
+   ```
+2. Open the notebook in Colab and run all cells. The first cells mount Drive and read the data from `/content/drive/MyDrive/bt4222/JDsearch/`.
 
 ## Notebooks
 
