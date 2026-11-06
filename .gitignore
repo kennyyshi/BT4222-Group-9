@@ -3,6 +3,7 @@ JDsearch.tar
 JDsearch/
 
 # Other local data/artifacts
+*.parquet
 *.pt
 *.tar
 *.tar.gz
