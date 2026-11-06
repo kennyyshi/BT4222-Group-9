@@ -1,5 +1,8 @@
 # BT4222-Group-9
 
+Personalised reranking of JD.com search results: for each search, we reorder JD's candidate list so that the products users click, cart and buy rise to the top.
+We compare LambdaRank on engineered features (test NDCG@10 0.406) with an attention model over users' past actions (0.399), against 0.328 for popularity alone.
+
 ## Dataset: JDsearch
 
 This project uses the [JDsearch](https://github.com/rucliujn/JDsearch) dataset (~170K users, ~12.9M products, ~26.7M interactions). Paper: https://arxiv.org/pdf/2305.14810
@@ -41,11 +44,3 @@ Each step is one notebook in this folder, run in Colab with its outputs kept. La
 | `step4_diagnostics.ipynb` | Diagnostics | Bryan | To be added |
 
 **Run order:** `step0_sampling`, then `step1a_history` and `step1b_query_item`, then `step2_baselines` and `step3b_attention`, then `step3a_lambdarank` (it reads the popularity features exported by `step3b_attention`), then `step4_diagnostics`. `step0_feature_dictionary` is interim analysis and nothing depends on it.
-
-### Uploading your work
-
-1. On the repository's main page, choose **Add file > Upload files**.
-2. Upload your notebook with its outputs, using the name in the table above.
-3. Commit directly to `main`. If you need a new Drive link, edit the table in this README.
-
-**File sizes:** GitHub's web upload takes files up to 25 MB, and GitHub rejects anything over 100 MB. Keep larger files on Google Drive. Check that each Drive link opens for anyone with it, because the course requires the data to be reachable from this repository.
