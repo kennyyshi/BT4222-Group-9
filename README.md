@@ -38,14 +38,15 @@ Each step is one notebook in this folder, run in Colab with its outputs kept. La
 
 | Notebook | Step | Owner | Data on Drive |
 |---|---|---|---|
+| `step0_sampling.ipynb` | Builds the shared sample `user_subset.parquet` (see Data sample above) | Ning | [`JDsearch`](https://drive.google.com/drive/folders/1BBowElqdtOscFCv-exMlE1IAEHMUxnmi) |
 | `step0_feature_dictionary.ipynb` | Interim feature dictionary | Kexun, Bing Yang | None |
 | `step1a_history.ipynb` | History features | Caleb | [`step1a_history`](https://drive.google.com/drive/folders/1OK7Grk-kP4aB19SVr-DmW7lHcDNEA2vb) |
 | `step1b_query_item.ipynb` | Query and item features | Gareth | [`step1b_query_item`](https://drive.google.com/drive/folders/146-fzpjCRpXjL-ZEmJ-AgBl1OMF8fIVf) |
 | `step2a_metadata_preparation.ipynb` | Candidate metadata for the baselines | Bing Yang | [`step2_baselines`](https://drive.google.com/drive/folders/1Zza4LWA7XFlSmH1XbD1NEExwqIqE6Lgj) |
-| `step2b_baseline_ncf_lstm_optimized.ipynb` | Baselines (popularity, BM25, LSTM-NCF) and their gaps | Bing Yang | [`step2_baselines`](https://drive.google.com/drive/folders/1Zza4LWA7XFlSmH1XbD1NEExwqIqE6Lgj) |
+| `step2b_baseline_ncf_lstm.ipynb` | Baselines (popularity, BM25, LSTM-NCF) and their gaps | Bing Yang | [`step2_baselines`](https://drive.google.com/drive/folders/1Zza4LWA7XFlSmH1XbD1NEExwqIqE6Lgj) |
 | `step3a_lambdarank.ipynb` | Learning-to-rank | Ning | [`step3a_lambdarank`](https://drive.google.com/drive/folders/1CRvRH_hctK9C6pgDFUfPrxxeZ_QsDpuM) |
 | `step3a_lambdarank_seeds.ipynb` | LambdaRank refit with seeds 43 and 44 (the reported 0.406 ± 0.001) | Ning | [`step3a_lambdarank`](https://drive.google.com/drive/folders/1CRvRH_hctK9C6pgDFUfPrxxeZ_QsDpuM) |
 | `step3b_attention.ipynb` | Attention model | Kexun | [`step3b_attention`](https://drive.google.com/drive/folders/1UBAXYCw2ZWm2lpeUl8DNwJGPgqO1aJPa) |
 | `step4_diagnostics.ipynb` | Diagnostics | Bryan | [`step4_diagnostics`](https://drive.google.com/drive/folders/1VBLkzDiBVOQJ_gExfZUq_3XgB3jZmWz2) |
 
-**Run order:** `step1a_history` and `step1b_query_item`, then `step2a_metadata_preparation`, `step2b_baseline_ncf_lstm_optimized` and `step3b_attention`, then `step3a_lambdarank` (it reads the popularity features exported by `step3b_attention`) and `step3a_lambdarank_seeds`, then `step4_diagnostics`. `step0_feature_dictionary` is interim analysis and nothing depends on it.
+**Run order:** `step0_sampling` (its output, `user_subset.parquet`, is already on Drive), then `step1a_history` and `step1b_query_item`, then `step2a_metadata_preparation` followed by `step2b_baseline_ncf_lstm`, and `step3b_attention`, then `step3a_lambdarank` (it reads the popularity features exported by `step3b_attention`) and `step3a_lambdarank_seeds`, then `step4_diagnostics`. `step0_feature_dictionary` is interim analysis and nothing depends on it.
