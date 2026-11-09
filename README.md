@@ -26,7 +26,11 @@ The raw data (`user_behavior_data.txt`, `product_meta_data.txt`) is **not** incl
    ```
    !tar -xf /content/drive/MyDrive/bt4222/JDsearch.tar -C /content/drive/MyDrive/bt4222/
    ```
-2. Open the notebook in Colab and run all cells. The first cells mount Drive and read the data from `/content/drive/MyDrive/bt4222/JDsearch/`.
+2. Open the notebook in Colab and run all cells. The first cells mount Drive and read the data from `/content/drive/MyDrive/bt4222/JDsearch/`. `step1a_history` and `step1b_query_item` read from `/content/drive/MyDrive/JDsearch/` instead: set `BASE` (step 1a) or `DATA_DIR` (step 1b) in their first code cells to your folder.
+
+## Data sample
+
+Every notebook starts from `user_subset.parquet` in the [`JDsearch`](https://drive.google.com/drive/folders/1BBowElqdtOscFCv-exMlE1IAEHMUxnmi) Drive folder: the sample built for the interim report and used unchanged since. It drops the 2,103 searches with no click, cart or purchase, keeps a random 50% of users stratified on whether they purchased (85,864 users, one final search each, every candidate kept), and splits users 70 / 15 / 15 into train, validation and test (60,104 / 12,880 / 12,880), also stratified on purchase. No user appears in two splits. Histories in this file are cut to the latest 200 actions; `step1a_history` restores the full histories from the raw data.
 
 ## Pipeline
 
@@ -34,13 +38,14 @@ Each step is one notebook in this folder, run in Colab with its outputs kept. La
 
 | Notebook | Step | Owner | Data on Drive |
 |---|---|---|---|
-| `step0_sampling.ipynb` | Sampling and train / validation / test split | Ning | [`JDsearch`](https://drive.google.com/drive/folders/1BBowElqdtOscFCv-exMlE1IAEHMUxnmi) (`user_subset.parquet`) |
 | `step0_feature_dictionary.ipynb` | Interim feature dictionary | Kexun, Bing Yang | None |
 | `step1a_history.ipynb` | History features | Caleb | [`step1a_history`](https://drive.google.com/drive/folders/1OK7Grk-kP4aB19SVr-DmW7lHcDNEA2vb) |
 | `step1b_query_item.ipynb` | Query and item features | Gareth | [`step1b_query_item`](https://drive.google.com/drive/folders/146-fzpjCRpXjL-ZEmJ-AgBl1OMF8fIVf) |
-| `step2_baselines.ipynb` | Baselines and gaps | Bing Yang | [`step3_baselines`](https://drive.google.com/drive/folders/1VcEMbTilI6iVz22T9kcAhMT9M3BFMWKx) |
+| `step2a_metadata_preparation.ipynb` | Candidate metadata for the baselines | Bing Yang | [`step2_baselines`](https://drive.google.com/drive/folders/1Zza4LWA7XFlSmH1XbD1NEExwqIqE6Lgj) |
+| `step2b_baseline_ncf_lstm_optimized.ipynb` | Baselines (popularity, BM25, LSTM-NCF) and their gaps | Bing Yang | [`step2_baselines`](https://drive.google.com/drive/folders/1Zza4LWA7XFlSmH1XbD1NEExwqIqE6Lgj) |
 | `step3a_lambdarank.ipynb` | Learning-to-rank | Ning | [`step3a_lambdarank`](https://drive.google.com/drive/folders/1CRvRH_hctK9C6pgDFUfPrxxeZ_QsDpuM) |
+| `step3a_lambdarank_seeds.ipynb` | LambdaRank refit with seeds 43 and 44 (the reported 0.406 ± 0.001) | Ning | [`step3a_lambdarank`](https://drive.google.com/drive/folders/1CRvRH_hctK9C6pgDFUfPrxxeZ_QsDpuM) |
 | `step3b_attention.ipynb` | Attention model | Kexun | [`step3b_attention`](https://drive.google.com/drive/folders/1UBAXYCw2ZWm2lpeUl8DNwJGPgqO1aJPa) |
-| `step4_diagnostics.ipynb` | Diagnostics | Bryan | To be added |
+| `step4_diagnostics.ipynb` | Diagnostics | Bryan | [`step4_diagnostics`](https://drive.google.com/drive/folders/1VBLkzDiBVOQJ_gExfZUq_3XgB3jZmWz2) |
 
-**Run order:** `step0_sampling`, then `step1a_history` and `step1b_query_item`, then `step2_baselines` and `step3b_attention`, then `step3a_lambdarank` (it reads the popularity features exported by `step3b_attention`), then `step4_diagnostics`. `step0_feature_dictionary` is interim analysis and nothing depends on it.
+**Run order:** `step1a_history` and `step1b_query_item`, then `step2a_metadata_preparation`, `step2b_baseline_ncf_lstm_optimized` and `step3b_attention`, then `step3a_lambdarank` (it reads the popularity features exported by `step3b_attention`) and `step3a_lambdarank_seeds`, then `step4_diagnostics`. `step0_feature_dictionary` is interim analysis and nothing depends on it.
